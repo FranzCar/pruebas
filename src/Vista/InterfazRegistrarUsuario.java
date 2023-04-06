@@ -4,9 +4,10 @@
  */
 package Vista;
 import Controlador.Usuario;
-import Conexion.ConectarBD;
+import Modelo.ConectarBD;
 import Modelo.ListarUsuarios;
 import static Vista.InterfazAdministrarUsuario.jTableUsuario;
+import java.awt.Toolkit;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -29,13 +30,16 @@ public class InterfazRegistrarUsuario extends javax.swing.JFrame {
     static Usuario objUsuario;
     int id;
     ConectarBD con = new ConectarBD();    
+    
     public InterfazRegistrarUsuario() {
         initComponents();
+        habilitarBoton();//habilitar boton de inicio
+        this.setLocationRelativeTo(null);
+        
         objUsuario=new Usuario(); 
         try {
             conexion=con.establecerConexion();
-        } catch (Exception e) {
-            
+        } catch (Exception e) {   
         }
     }
 
@@ -64,152 +68,216 @@ public class InterfazRegistrarUsuario extends javax.swing.JFrame {
         jTextFieldIdUsuario = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jDateChooserFechaInicio = new com.toedter.calendar.JDateChooser();
+        jLabel8 = new javax.swing.JLabel();
+        avisoNombre = new javax.swing.JLabel();
+        avisoCI = new javax.swing.JLabel();
+        avisoTelefono = new javax.swing.JLabel();
+        avisoFecha = new javax.swing.JLabel();
+        avisoIDusuario = new javax.swing.JLabel();
+        avisoContrasenia = new javax.swing.JLabel();
+        avisoDireccion = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFont(new java.awt.Font("AcadEref", 0, 24)); // NOI18N
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTextFieldNombre.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
             }
         });
+        jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 98, 300, 40));
 
+        jTextFieldCi.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jTextFieldCi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCiActionPerformed(evt);
             }
         });
+        jTextFieldCi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldCiKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldCiKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jTextFieldCi, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 157, 300, 40));
 
+        jTextFieldContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jTextFieldContrasenia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldContraseniaActionPerformed(evt);
             }
         });
+        jTextFieldContrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldContraseniaKeyReleased(evt);
+            }
+        });
+        getContentPane().add(jTextFieldContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 300, -1));
 
+        jTextFieldDireccion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jTextFieldDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldDireccionActionPerformed(evt);
             }
         });
+        jTextFieldDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldDireccionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldDireccionKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jTextFieldDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 472, 300, -1));
 
+        jTextFieldTelefono.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldTelefonoActionPerformed(evt);
             }
         });
+        jTextFieldTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldTelefonoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldTelefonoKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jTextFieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 218, 300, 40));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(245, 245, 245));
         jLabel1.setText("Nombre de Usuario");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 108, -1, -1));
 
-        jLabel2.setText("carnet de identidad");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel2.setText("Carnet de Identidad");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 167, -1, -1));
 
-        jLabel3.setText("telefono");
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel3.setText("Telefono");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 231, -1, -1));
 
-        jLabel4.setText("fecha de inicio");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel4.setText("Fecha de Inicio");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 294, -1, -1));
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(245, 245, 245));
         jLabel5.setText("Contrasenia");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 413, -1, -1));
 
-        jLabel6.setText("direccion");
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel6.setText("Direccion");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 475, -1, -1));
 
-        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setBackground(new java.awt.Color(77, 150, 180));
+        jButtonGuardar.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jButtonGuardar.setForeground(new java.awt.Color(245, 245, 245));
+        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/registrado.png"))); // NOI18N
+        jButtonGuardar.setText("GUARDAR");
+        jButtonGuardar.setOpaque(false);
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGuardarActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 550, 170, -1));
 
-        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setBackground(new java.awt.Color(97, 150, 180));
+        jButtonCancelar.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jButtonCancelar.setForeground(new java.awt.Color(245, 245, 245));
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cancelar.png"))); // NOI18N
+        jButtonCancelar.setText("CANCELAR");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 550, 170, -1));
 
+        jTextFieldIdUsuario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jTextFieldIdUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldIdUsuarioActionPerformed(evt);
             }
         });
+        jTextFieldIdUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldIdUsuarioKeyReleased(evt);
+            }
+        });
+        getContentPane().add(jTextFieldIdUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 347, 300, -1));
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(245, 245, 245));
         jLabel7.setText("IdUsuario");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 350, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldCi, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonGuardar)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonCancelar)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldIdUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                            .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(61, 61, 61))
+        jDateChooserFechaInicio.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jDateChooserFechaInicio.setMaxSelectableDate(new java.util.Date(253370782906000L));
+        jDateChooserFechaInicio.setMinSelectableDate(new java.util.Date(-62135751494000L));
+        getContentPane().add(jDateChooserFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 283, 300, 38));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(245, 245, 245));
+        jLabel8.setText("REGISTRAR USUARIO");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 13, -1, -1));
+
+        avisoNombre.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(avisoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 105, 181, 38));
+
+        avisoCI.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(avisoCI, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 164, 181, 38));
+
+        avisoTelefono.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(avisoTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 223, 181, 38));
+
+        avisoFecha.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(avisoFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 283, 181, 38));
+
+        avisoIDusuario.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(avisoIDusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 347, 181, 38));
+
+        avisoContrasenia.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(avisoContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 410, 181, 38));
+
+        avisoDireccion.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(avisoDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 470, 181, 38));
+
+        jPanel2.setBackground(new java.awt.Color(37, 77, 116));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 930, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldCi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGuardar)
-                    .addComponent(jButtonCancelar))
-                .addContainerGap())
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 630, Short.MAX_VALUE)
         );
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 630));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -251,14 +319,34 @@ public class InterfazRegistrarUsuario extends javax.swing.JFrame {
             java.sql.Date fecha=new java.sql.Date(objUsuario.fechaDeInicio);
             objUsuario.idUsuario=jTextFieldIdUsuario.getText();
             objUsuario.Contrasenia=jTextFieldContrasenia.getText();
-            objUsuario.direccion=jTextFieldDireccion.getText();                    
+            objUsuario.direccion=jTextFieldDireccion.getText();
+            
+            //Para validar que el usuario no sea duplicado
+            
+            String sentenciaSQL2 = "SELECT COUNT(*) FROM usuarios WHERE idUsuario = '" + objUsuario.idUsuario + "'";
+            ResultSet resultado = sentencia.executeQuery(sentenciaSQL2);
+            resultado.next();
+            int count = resultado.getInt(1);
+            if (count > 0) {
+                JOptionPane.showMessageDialog(this, "El nombre de IdUsuario ya existe. Por favor ingrese otro nombre.");
+                return;
+            }
+            
+            // Si no esta duplicado, se realiza el registro
+            
                 String sentenciaSQL1 = new String();
-                sentenciaSQL1="INSERT INTO Usuario(nombreUsuario,ciUsuario,telefonoUsuario,fechaInicioUsuario,idUsuario,contraseniaUsuario,direccionUsuario)";
+                sentenciaSQL1="INSERT INTO usuarios(nombreUsuario,ciUsuario,telefonoUsuario,fechaInicioUsuario,idUsuario,contraseniaUsuario,direccionUsuario)";
                 sentenciaSQL1= sentenciaSQL1+"VALUES('"+objUsuario.nombreDeUsuario+"','"+objUsuario.carnetDeIdentidad+"','"+objUsuario.telefono+
                                     "','"+fecha+"','"+objUsuario.idUsuario+"','"+objUsuario.Contrasenia+"','"+objUsuario.direccion+"')";
                 sentencia.execute(sentenciaSQL1); 
-            JOptionPane.showMessageDialog(this, "Guardado con exito"); 
                 
+            // Se muestra mensaje de exito
+            JOptionPane.showMessageDialog(this, "Guardado con exito"); 
+            
+            //Se actualiza la tabla de usuarios
+            ListarUsuarios Administrar=new ListarUsuarios();
+            Administrar.MostrarTabla(jTableUsuario);
+            
         } catch (SQLException e) {
             Logger.getLogger(InterfazRegistrarUsuario.class.getName()).log(Level.SEVERE,null,e);
         }
@@ -269,13 +357,166 @@ public class InterfazRegistrarUsuario extends javax.swing.JFrame {
         jTextFieldTelefono.setText("");
         jTextFieldIdUsuario.setText("");
         jDateChooserFechaInicio.setDate(null);
-        ListarUsuarios Administrar=new ListarUsuarios();
-        Administrar.MostrarTabla(jTableUsuario);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
+    
+    public static boolean validar(String datos){
+    return datos.matches("[0-9][1,8]");
+    }
+    
+public void validacionCaracteres(java.awt.event.KeyEvent evento){
+    if(evento.getKeyChar()>=33 && evento.getKeyChar()<=64 || 
+            evento.getKeyChar()>=91 && evento.getKeyChar()<=96 ||
+            evento.getKeyChar()>=123 && evento.getKeyChar()<=208||
+            evento.getKeyChar()>=210 && evento.getKeyChar()<=240||
+            evento.getKeyChar()>=242 && evento.getKeyChar()<=255){
+    evento.consume();
+    JOptionPane.showMessageDialog(this, "No se permite Caracteres Especiales");
+    }
+}
+public void validacionCaracteresDireccion(java.awt.event.KeyEvent evento){
+    if(evento.getKeyChar()>=33 && evento.getKeyChar()<=34 ||
+            evento.getKeyChar()>=36 && evento.getKeyChar()<=43 ||
+            evento.getKeyChar()>=60 && evento.getKeyChar()<=64 ||
+            evento.getKeyChar()>=91 && evento.getKeyChar()<=96 ||
+            evento.getKeyChar()>=123 && evento.getKeyChar()<=208||
+            evento.getKeyChar()>=210 && evento.getKeyChar()<=240||
+            evento.getKeyChar()>=242 && evento.getKeyChar()<=255){
+    evento.consume();
+    JOptionPane.showMessageDialog(this, "No se permite Caracteres Especiales");
+    }
+    
+}
+public void validacionNumeros(java.awt.event.KeyEvent evento){
+    if(evento.getKeyChar()>=33 && evento.getKeyChar()<=47 || 
+            evento.getKeyChar()>=58 && evento.getKeyChar()<=255){
+        evento.consume();
+    JOptionPane.showMessageDialog(this, "Solo se permiten Numeros");
+    }
+    
+}
+    
+public void validarCamposVacios(){
+    if(jTextFieldNombre.getText().isEmpty()){
+     avisoNombre.setText("Campo Obligatorio");
+    }else{
+        if(jTextFieldNombre.getText().length()<=2){
+             avisoNombre.setText("Minimo 3 Caracteres");  
+        }
+    else{avisoNombre.setText(""); } 
+    }
+    
+    
+    if(jTextFieldCi.getText().isEmpty()){
+     avisoCI.setText("Campo Obligatorio");
+    }else{
+        if(jTextFieldCi.getText().length()<7){
+             avisoCI.setText("Se requiere de 7 digitos");  
+        }else{
+         avisoCI.setText(""); 
+                     
+    }
+    
+    }
+    if(jTextFieldTelefono.getText().isEmpty()){
+     avisoTelefono.setText("Campo Obligatorio");
+    }else{
+             avisoTelefono.setText("");         
+    }
+    //if(jDateChooserFechaInicio.getDate().{
+     //lbAvisoFeIni.setText("Campo Obligatorio");
+    //}else{
+            // lbAvisoFeIni.setText("");         
+    if(jTextFieldIdUsuario.getText().isEmpty()){
+     avisoIDusuario.setText("Campo Obligatorio");
+    }else{
+             avisoIDusuario.setText("");         
+    }
+    if(jTextFieldContrasenia.getText().isEmpty()){
+     avisoContrasenia.setText("Campo Obligatorio");
+    }else{
+             avisoContrasenia.setText("");         
+    }
+    if(jTextFieldDireccion.getText().isEmpty()){
+     avisoDireccion.setText("Campo Obligatorio");
+    }else{
+             avisoDireccion.setText("");         
+    }
+}
+public void habilitarBoton(){
+    if(jTextFieldNombre.getText().isEmpty()
+            || jTextFieldCi.getText().isEmpty()
+            || jTextFieldTelefono.getText().isEmpty()
+            || jTextFieldIdUsuario.getText().isEmpty()
+            || jTextFieldContrasenia.getText().isEmpty()
+            || jTextFieldDireccion.getText().isEmpty()
+            || jTextFieldNombre.getText().length()<=2
+            || jTextFieldCi.getText().length()<7){
+        jButtonGuardar.setEnabled(false);
+    }else{
+    jButtonGuardar.setEnabled(true);
+    }
+    
+    
+}
+    
     private void jTextFieldIdUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldIdUsuarioActionPerformed
+
+    private void jTextFieldNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyReleased
+        habilitarBoton();
+        validarCamposVacios();
+    }//GEN-LAST:event_jTextFieldNombreKeyReleased
+
+    private void jTextFieldNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyTyped
+        validacionCaracteres(evt);
+    }//GEN-LAST:event_jTextFieldNombreKeyTyped
+
+    private void jTextFieldTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoKeyReleased
+        habilitarBoton();
+        validarCamposVacios();
+    }//GEN-LAST:event_jTextFieldTelefonoKeyReleased
+
+    private void jTextFieldTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoKeyTyped
+        validacionNumeros(evt);
+        if(jTextFieldTelefono.getText().length()>=8){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_jTextFieldTelefonoKeyTyped
+
+    private void jTextFieldIdUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldIdUsuarioKeyReleased
+        habilitarBoton();
+        validarCamposVacios();
+    }//GEN-LAST:event_jTextFieldIdUsuarioKeyReleased
+
+    private void jTextFieldContraseniaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldContraseniaKeyReleased
+        habilitarBoton();
+        validarCamposVacios();
+    }//GEN-LAST:event_jTextFieldContraseniaKeyReleased
+
+    private void jTextFieldDireccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDireccionKeyReleased
+        habilitarBoton();
+        validarCamposVacios();
+    }//GEN-LAST:event_jTextFieldDireccionKeyReleased
+
+    private void jTextFieldDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDireccionKeyTyped
+        validacionCaracteresDireccion(evt);
+    }//GEN-LAST:event_jTextFieldDireccionKeyTyped
+
+    private void jTextFieldCiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCiKeyReleased
+        habilitarBoton();
+        validarCamposVacios();
+    }//GEN-LAST:event_jTextFieldCiKeyReleased
+
+    private void jTextFieldCiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCiKeyTyped
+        validacionNumeros(evt);
+         if(jTextFieldCi.getText().length()>=9){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+         }
+    }//GEN-LAST:event_jTextFieldCiKeyTyped
 
     /**
      * @param args the command line arguments
@@ -314,6 +555,13 @@ public class InterfazRegistrarUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel avisoCI;
+    private javax.swing.JLabel avisoContrasenia;
+    private javax.swing.JLabel avisoDireccion;
+    private javax.swing.JLabel avisoFecha;
+    private javax.swing.JLabel avisoIDusuario;
+    private javax.swing.JLabel avisoNombre;
+    private javax.swing.JLabel avisoTelefono;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGuardar;
     private com.toedter.calendar.JDateChooser jDateChooserFechaInicio;
@@ -324,6 +572,8 @@ public class InterfazRegistrarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextFieldCi;
     private javax.swing.JTextField jTextFieldContrasenia;
     private javax.swing.JTextField jTextFieldDireccion;

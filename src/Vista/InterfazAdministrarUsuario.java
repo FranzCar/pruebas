@@ -5,11 +5,13 @@
 package Vista;
 
 import Controlador.Usuario;
-import Conexion.ConectarBD;
+import Modelo.ConectarBD;
 import Modelo.ListarUsuarios;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
-
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,12 +22,15 @@ public class InterfazAdministrarUsuario extends javax.swing.JFrame {
     static Statement sentencia=null;    
     static Usuario objUsuario;
     ConectarBD con = new ConectarBD();
+    private DefaultTableModel modeloTabla;
     public static int idUsuarioTabla;
+    
     
     public InterfazAdministrarUsuario() {
         initComponents();
-        
+        this.setLocationRelativeTo(null);
         ListarUsuarios Administrar=new ListarUsuarios();
+        
         Administrar.MostrarTabla(jTableUsuario);
         
     }
@@ -47,20 +52,31 @@ public class InterfazAdministrarUsuario extends javax.swing.JFrame {
         jButtonEliminar = new javax.swing.JButton();
         jButtonRegistrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTableUsuario.setBackground(new java.awt.Color(240, 240, 240));
+        jTableUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTableUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Cod Usuario", "Nombre", "CI", "Telefono", "Usuario", "Direccion"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableUsuarioMouseClicked(evt);
@@ -68,82 +84,95 @@ public class InterfazAdministrarUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableUsuario);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 256, 955, 230));
+
+        jTextFieldBuscarCoincidencia.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jTextFieldBuscarCoincidencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldBuscarCoincidenciaActionPerformed(evt);
             }
         });
+        getContentPane().add(jTextFieldBuscarCoincidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 157, 284, -1));
 
+        jButtonBuscar.setBackground(new java.awt.Color(97, 150, 180));
+        jButtonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jButtonBuscar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonBuscar.setText("Buscar");
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBuscarActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(381, 156, -1, -1));
 
-        jButtonEditar.setText("Editar");
+        jButtonEditar.setBackground(new java.awt.Color(97, 150, 180));
+        jButtonEditar.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jButtonEditar.setForeground(new java.awt.Color(245, 245, 245));
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/editarUser.png"))); // NOI18N
+        jButtonEditar.setText("EDITAR");
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEditarActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 572, -1, -1));
 
-        jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setBackground(new java.awt.Color(97, 150, 180));
+        jButtonEliminar.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jButtonEliminar.setForeground(new java.awt.Color(245, 245, 245));
+        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
+        jButtonEliminar.setText("ELIMINAR");
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEliminarActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(471, 572, -1, -1));
 
-        jButtonRegistrar.setText("Registrar");
+        jButtonRegistrar.setBackground(new java.awt.Color(97, 150, 180));
+        jButtonRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jButtonRegistrar.setForeground(new java.awt.Color(245, 245, 245));
+        jButtonRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/registrar.png"))); // NOI18N
+        jButtonRegistrar.setText("REGISTRAR");
         jButtonRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRegistrarActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(744, 572, -1, -1));
 
-        jLabel1.setText("nombre usuario");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Nombre de Usuario");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 122, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(68, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonEditar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonEliminar)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButtonRegistrar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jTextFieldBuscarCoincidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButtonBuscar))
-                        .addComponent(jLabel1)))
-                .addGap(63, 63, 63))
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("ADMINISTRAR USUARIOS");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 16, -1, -1));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/INICIO (2).png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 23, 53, -1));
+
+        jPanel1.setBackground(new java.awt.Color(37, 77, 116));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1050, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(129, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldBuscarCoincidencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBuscar))
-                .addGap(42, 42, 42)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonEditar)
-                    .addComponent(jButtonEliminar)
-                    .addComponent(jButtonRegistrar))
-                .addGap(52, 52, 52))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 660, Short.MAX_VALUE)
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 660));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -155,7 +184,6 @@ public class InterfazAdministrarUsuario extends javax.swing.JFrame {
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         ListarUsuarios Administrar=new ListarUsuarios();
         Administrar.MostrarTablaBuscar(jTableUsuario,jTextFieldBuscarCoincidencia.getText());    
-        
         
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
@@ -184,6 +212,10 @@ public class InterfazAdministrarUsuario extends javax.swing.JFrame {
         int seleccionar=jTableUsuario.rowAtPoint(evt.getPoint());
         idUsuarioTabla=Integer.parseInt(String.valueOf(jTableUsuario.getValueAt(seleccionar,0)));
     }//GEN-LAST:event_jTableUsuarioMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,11 +256,14 @@ public class InterfazAdministrarUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonRegistrar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable jTableUsuario;
     private javax.swing.JTextField jTextFieldBuscarCoincidencia;

@@ -20,16 +20,8 @@ public class Usuario {
     public String direccion;
     public JTable tabla;
 
-    // constructor por defecto
     public Usuario() {
-        this.idUsuario=idUsuario;
-        this.nombreDeUsuario=nombreDeUsuario;
-        this.carnetDeIdentidad=carnetDeIdentidad;
-        this.telefono=telefono;
-        this.fechaDeInicio=fechaDeInicio;
-        this.Contrasenia=Contrasenia;
-        this.direccion=direccion;
-        this.tabla=tabla;                
+        
     }
     
 }

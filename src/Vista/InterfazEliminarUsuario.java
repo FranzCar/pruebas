@@ -5,10 +5,11 @@
 package Vista;
 
 import Controlador.Usuario;
-import Conexion.ConectarBD;
+import Modelo.ConectarBD;
 import Modelo.ListarUsuarios;
 import static Vista.InterfazAdministrarUsuario.idUsuarioTabla;
 import static Vista.InterfazAdministrarUsuario.jTableUsuario;
+import java.awt.Toolkit;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -31,9 +32,11 @@ public class InterfazEliminarUsuario extends javax.swing.JFrame {
     static Usuario objUsuario;
     ConectarBD con = new ConectarBD();
     int id=idUsuarioTabla;
+    
     public InterfazEliminarUsuario() {
-        
         initComponents();
+        this.setLocationRelativeTo(null);
+        jButtonEliminar.setEnabled(true);
         
         objUsuario=new Usuario();
               
@@ -44,7 +47,7 @@ public class InterfazEliminarUsuario extends javax.swing.JFrame {
         }
         
         String consultasql = new String();
-        consultasql = "SELECT *FROM USUARIO WHERE codUsuario="+id;        
+        consultasql = "SELECT *FROM USUARIOS WHERE codUsuario="+id;        
         
         try{
             sentencia=conexion.createStatement();
@@ -97,135 +100,213 @@ public class InterfazEliminarUsuario extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jTextFieldIdUsuario = new javax.swing.JTextField();
         jDateChooserFechaInicio = new com.toedter.calendar.JDateChooser();
+        jLabel9 = new javax.swing.JLabel();
+        lbAvisoNombre = new javax.swing.JLabel();
+        lbAvisoCI = new javax.swing.JLabel();
+        ldAvisoTelefono = new javax.swing.JLabel();
+        lbAvisoFecha = new javax.swing.JLabel();
+        lbAvisoIDusuario = new javax.swing.JLabel();
+        lbAvisoContrasenia = new javax.swing.JLabel();
+        lbAvisoDireccion = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(245, 245, 245));
         jLabel1.setText("Nombre de Usuario");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 103, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(245, 245, 245));
         jLabel2.setText("Carnet de Identidad");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 167, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(245, 245, 245));
         jLabel3.setText("Telefono");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 226, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(245, 245, 245));
         jLabel4.setText("Fecha de inicio");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 282, -1, -1));
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(245, 245, 245));
         jLabel5.setText("Contrasenia");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 393, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(245, 245, 245));
         jLabel6.setText("Direccion");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 450, -1, -1));
 
-        jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setBackground(new java.awt.Color(97, 150, 180));
+        jButtonEliminar.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jButtonEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
+        jButtonEliminar.setText("ELIMINAR");
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEliminarActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 552, -1, -1));
 
-        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setBackground(new java.awt.Color(97, 150, 180));
+        jButtonCancelar.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jButtonCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cancelar.png"))); // NOI18N
+        jButtonCancelar.setText("CANCELAR");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 550, -1, -1));
 
+        jTextFieldNombre.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNombreActionPerformed(evt);
+            }
+        });
+        jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 97, 300, -1));
+
+        jTextFieldCi.setPreferredSize(new java.awt.Dimension(7, 33));
+        jTextFieldCi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCiActionPerformed(evt);
+            }
+        });
+        jTextFieldCi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldCiKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldCiKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jTextFieldCi, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 161, 300, -1));
+
+        jTextFieldTelefono.setPreferredSize(new java.awt.Dimension(7, 33));
+        jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTelefonoActionPerformed(evt);
+            }
+        });
+        jTextFieldTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldTelefonoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldTelefonoKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jTextFieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 220, 300, -1));
+
+        jTextFieldContrasenia.setPreferredSize(new java.awt.Dimension(7, 33));
+        jTextFieldContrasenia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldContraseniaActionPerformed(evt);
+            }
+        });
+        jTextFieldContrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldContraseniaKeyReleased(evt);
+            }
+        });
+        getContentPane().add(jTextFieldContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 387, 300, -1));
+
+        jTextFieldDireccion.setPreferredSize(new java.awt.Dimension(7, 33));
         jTextFieldDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldDireccionActionPerformed(evt);
             }
         });
+        jTextFieldDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldDireccionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldDireccionKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jTextFieldDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 444, 300, -1));
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(245, 245, 245));
         jLabel7.setText("Id Usuario");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 333, -1, -1));
 
+        jTextFieldIdUsuario.setPreferredSize(new java.awt.Dimension(7, 33));
         jTextFieldIdUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldIdUsuarioActionPerformed(evt);
             }
         });
+        jTextFieldIdUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldIdUsuarioKeyReleased(evt);
+            }
+        });
+        getContentPane().add(jTextFieldIdUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 327, 300, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButtonEliminar)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(41, 41, 41)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
-                                .addComponent(jButtonCancelar)
-                                .addGap(10, 10, 10))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(95, 95, 95)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldIdUsuario)
-                                    .addComponent(jTextFieldNombre)
-                                    .addComponent(jTextFieldCi)
-                                    .addComponent(jTextFieldTelefono)
-                                    .addComponent(jTextFieldContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                                    .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addContainerGap())))
+        jDateChooserFechaInicio.setBackground(new java.awt.Color(255, 255, 255));
+        jDateChooserFechaInicio.setPreferredSize(new java.awt.Dimension(80, 33));
+        getContentPane().add(jDateChooserFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 276, 215, -1));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("ELIMINAR USUARIO");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(379, 13, -1, -1));
+
+        lbAvisoNombre.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(lbAvisoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 97, 181, 33));
+
+        lbAvisoCI.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(lbAvisoCI, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 161, 181, 33));
+
+        ldAvisoTelefono.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(ldAvisoTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 220, 181, 33));
+
+        lbAvisoFecha.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(lbAvisoFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 276, 181, 33));
+
+        lbAvisoIDusuario.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(lbAvisoIDusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 327, 181, 33));
+
+        lbAvisoContrasenia.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(lbAvisoContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 387, 181, 33));
+
+        lbAvisoDireccion.setForeground(new java.awt.Color(245, 245, 245));
+        getContentPane().add(lbAvisoDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 444, 181, 33));
+
+        jPanel1.setBackground(new java.awt.Color(37, 77, 116));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 930, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextFieldCi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonEliminar)
-                    .addComponent(jButtonCancelar))
-                .addGap(28, 28, 28))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 630, Short.MAX_VALUE)
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 630));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -235,7 +316,7 @@ public class InterfazEliminarUsuario extends javax.swing.JFrame {
             sentencia=conexion.createStatement();
                    
             String sentenciaSQL1 = new String();
-            sentenciaSQL1="DELETE FROM USUARIO WHERE codUsuario="+id;
+            sentenciaSQL1="DELETE FROM USUARIOS WHERE codUsuario="+id;
                  
             sentencia.execute(sentenciaSQL1); 
             JOptionPane.showMessageDialog(this, "Eliminado con exito"); 
@@ -244,12 +325,28 @@ public class InterfazEliminarUsuario extends javax.swing.JFrame {
         } catch (SQLException e) {
             Logger.getLogger(InterfazRegistrarUsuario.class.getName()).log(Level.SEVERE,null,e);
         }
+        
         ListarUsuarios Administrar=new ListarUsuarios();
         Administrar.MostrarTabla(jTableUsuario);
-        dispose();
+        //dispose();
 
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
+        public static boolean validar(String datos){
+        return datos.matches("[0-9][1,8]");
+    }
+public void habilitarBoton(){
+    if(jTextFieldNombre.getText().isEmpty()
+            || jTextFieldCi.getText().isEmpty()
+            || jTextFieldTelefono.getText().isEmpty()
+            || jTextFieldIdUsuario.getText().isEmpty()
+            || jTextFieldContrasenia.getText().isEmpty()
+            || jTextFieldDireccion.getText().isEmpty()){
+        jButtonEliminar.setEnabled(false);
+    }else{
+    jButtonEliminar.setEnabled(true);
+    }
+}
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
@@ -261,6 +358,64 @@ public class InterfazEliminarUsuario extends javax.swing.JFrame {
     private void jTextFieldDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDireccionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDireccionActionPerformed
+
+    private void jTextFieldCiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCiActionPerformed
+
+    private void jTextFieldNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyReleased
+        habilitarBoton();
+    }//GEN-LAST:event_jTextFieldNombreKeyReleased
+
+    private void jTextFieldNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyTyped
+    }//GEN-LAST:event_jTextFieldNombreKeyTyped
+
+    private void jTextFieldCiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCiKeyReleased
+        habilitarBoton();
+    }//GEN-LAST:event_jTextFieldCiKeyReleased
+
+    private void jTextFieldCiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCiKeyTyped
+    }//GEN-LAST:event_jTextFieldCiKeyTyped
+
+    private void jTextFieldTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoKeyReleased
+        habilitarBoton();
+        
+    }//GEN-LAST:event_jTextFieldTelefonoKeyReleased
+
+    private void jTextFieldTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoKeyTyped
+        if(jTextFieldTelefono.getText().length()>=8){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+         
+    }//GEN-LAST:event_jTextFieldTelefonoKeyTyped
+
+    private void jTextFieldIdUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldIdUsuarioKeyReleased
+        habilitarBoton();
+    }//GEN-LAST:event_jTextFieldIdUsuarioKeyReleased
+
+    private void jTextFieldContraseniaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldContraseniaKeyReleased
+        habilitarBoton();
+    }//GEN-LAST:event_jTextFieldContraseniaKeyReleased
+
+    private void jTextFieldDireccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDireccionKeyReleased
+        habilitarBoton();
+    }//GEN-LAST:event_jTextFieldDireccionKeyReleased
+
+    private void jTextFieldDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDireccionKeyTyped
+    }//GEN-LAST:event_jTextFieldDireccionKeyTyped
+
+    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNombreActionPerformed
+
+    private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
+
+    private void jTextFieldContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldContraseniaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldContraseniaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,11 +466,20 @@ public class InterfazEliminarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldCi;
     private javax.swing.JTextField jTextFieldContrasenia;
     private javax.swing.JTextField jTextFieldDireccion;
     private javax.swing.JTextField jTextFieldIdUsuario;
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldTelefono;
+    private javax.swing.JLabel lbAvisoCI;
+    private javax.swing.JLabel lbAvisoContrasenia;
+    private javax.swing.JLabel lbAvisoDireccion;
+    private javax.swing.JLabel lbAvisoFecha;
+    private javax.swing.JLabel lbAvisoIDusuario;
+    private javax.swing.JLabel lbAvisoNombre;
+    private javax.swing.JLabel ldAvisoTelefono;
     // End of variables declaration//GEN-END:variables
 }
